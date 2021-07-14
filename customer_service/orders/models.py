@@ -12,7 +12,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
     
     def __str__(self):
-        return self.name
+        return self.customer.name
 
 
 class OrderItem(models.Model):
@@ -23,6 +23,5 @@ class OrderItem(models.Model):
     qtd = models.IntegerField(null=True, blank=True, default=1)
     total = models.DecimalField(max_digits=15, decimal_places=2)
     
-    
     def __str__(self):
-        return self.name
+        return self.product.name
