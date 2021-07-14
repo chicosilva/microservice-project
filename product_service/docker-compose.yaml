@@ -4,33 +4,30 @@ services:
 
     productapp:
         build: .
+        #command: python manage.py runserver 0.0.0.0:8000
+        entrypoint: ["./wait.sh"]
         volumes:
             - ./:/var/www
+        ports:
+            - "8000:8000"
         depends_on: 
             - productapp-mysql
             - productapp-redis
     
+    #https://dev.to/ashiqursuperfly/setting-up-the-database-dockerizing-django-for-deploying-anywhere-3emg
     productapp-mysql:
-        image: mysql:5.7.22
-        command: --innodb-use-native-aio=0
+        image: mysql:8.0.21
+        
         restart: always
         ports:
-            - "3306"
-        volumes: 
-            - "./.docker/dbdata:/var/lib/mysql"
+            - "30000:3306"
+        volumes:
+            - ./.docker/dbdata:/docker-entrypoint-initdb.d/:ro
+            #- ./.docker/dbdata:/var/run/mysqld
+            #- ./.docker/dbdata:/var/lib/mysql
         environment: 
             MYSQL_DATABASE: productapp
             MYSQL_ROOT_PASSWORD: root
-    
-    productapp-nginx:
-        build: ./.docker/nginx
-        restart: always
-        ports: 
-            - "8001:80"
-        volumes: 
-            - ./:/var/www
-        depends_on:
-            - productapp
     
     productapp-redis:
         image: redis:alpine
