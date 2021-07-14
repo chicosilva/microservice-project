@@ -11,8 +11,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,7 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'products',
+    'customers',
 ]
 
 MIDDLEWARE = [
@@ -56,10 +54,10 @@ WSGI_APPLICATION = 'keep.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'productapp',
+        'NAME': 'customerapp',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'productapp-mysql',
+        'HOST': 'customerapp-mysql',
         'PORT': 3306,
     }
 }

@@ -2,31 +2,30 @@ version: "3"
 
 services:
 
-    productapp:
+    customerapp:
         build: .
-        #command: python manage.py runserver 0.0.0.0:8000
         entrypoint: ["./wait.sh"]
         volumes:
             - ./:/var/www
         ports:
-            - "8000:8000"
+            - "8001:8001"
         depends_on: 
-            - productapp-mysql
-            - productapp-redis
+            - customerapp-mysql
+            - customerapp-redis
     
-    productapp-mysql:
+    customerapp-mysql:
         image: mysql:8.0.21
         
         restart: always
         ports:
-            - "30000:3306"
+            - "3306"
         volumes:
-            - ./.docker/dbdata:/docker-entrypoint-initdb.d/:ro
+            - ./.docker/dbdata:/docker-entrypoint-customer-initdb.d/:ro
         environment: 
-            MYSQL_DATABASE: productapp
+            MYSQL_DATABASE: customerapp
             MYSQL_ROOT_PASSWORD: root
     
-    productapp-redis:
+    customerapp-redis:
         image: redis:alpine
         expose: 
             - 6379
