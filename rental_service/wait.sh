@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while ! nc -z 3306-mysql 3306 ; do
+while ! nc -z rentalapp-mysql 3306 ; do
     echo "Waiting for the MySQL Server"
     sleep 3
 done
