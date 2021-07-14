@@ -6,7 +6,7 @@ class Order(models.Model):
 
     uuid = models.CharField(default=uuid.uuid4, editable=False, max_length=200, db_index=True)
     customer = models.ForeignKey('customers.Customer', on_delete=models.CASCADE)
-    status = models.BooleanField(default=True)
+    status = models.CharField(max_length=70)
     discount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True,)
     total = models.DecimalField(max_digits=15, decimal_places=2)
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
