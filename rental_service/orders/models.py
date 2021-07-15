@@ -42,7 +42,9 @@ class Order(models.Model):
         
         if self.balance != self.get_total() - self.get_total_payments():
             self.balance = self.get_total() - self.get_total_payments()
-    
+        
+        return self.balance
+
     def adjust_total(self):
 
         if self.total != self.get_total():
@@ -69,14 +71,14 @@ class Payment(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='get_payments')
     payment_type = models.CharField(max_length=70)
     description = models.CharField(max_length=70)
-    amount = models.DecimalField(max_digits=15, decimal_places=2)
-    payment_date = models.DateTimeField(editable=False)
+    amount = models.DecimalField(max_digits=15, decimal_places=2, default=0, null=True, blank=True,)
+    payment_date = models.DateField()
 
     def __str__(self):
-        return self.product.name
+        return f"{self.order.pk}"
 
 
-@receiver(post_save, sender=OrderItem, dispatch_uid="update_stock_count")
+@receiver(post_save, sender=OrderItem)
 def update_prices(sender, instance, **kwargs):
     
     Order.objects.\
@@ -87,6 +89,12 @@ def update_prices(sender, instance, **kwargs):
         filter(pk=instance.pk).\
         update(total=instance.qtd * instance.product.price)
 
-    #instance.adjust_balance()
-    #instance.adjust_total()
+
+@receiver(post_save, sender=Payment)
+def update_balance(sender, instance, **kwargs):
+    
+    Order.objects.\
+        filter(pk=instance.order.pk).\
+        update(balance=instance.order.adjust_balance())
+    
     
