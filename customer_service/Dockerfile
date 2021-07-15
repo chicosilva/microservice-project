@@ -16,8 +16,8 @@ WORKDIR /var/www
 
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install mysqlclient
-RUN pip install kafka-python
+RUN pip install mysqlclient kafka-python lz4 crc32c django-apscheduler
+
 
 RUN apk del build-deps
 COPY ./requirements.txt /var/www

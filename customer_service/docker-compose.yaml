@@ -15,7 +15,6 @@ services:
     
     customerapp-mysql:
         image: mysql:8.0.21
-        
         restart: always
         ports:
             - "3306"
@@ -32,5 +31,4 @@ services:
 
 networks:
     default:
-        external:
-            name: jornada-network
+        name: jornada-network

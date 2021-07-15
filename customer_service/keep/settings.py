@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'products',
     'customers',
     'orders',
+     "django_apscheduler",
 ]
 
 MIDDLEWARE = [
@@ -32,6 +33,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
 ROOT_URLCONF = 'keep.urls'
 
