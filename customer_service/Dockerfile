@@ -14,9 +14,10 @@ RUN mkdir -p /run/nginx && \
 
 WORKDIR /var/www
 
-RUN pip install --upgrade pip 
+RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install mysqlclient  
+RUN pip install mysqlclient
+RUN pip install kafka-python
 
 RUN apk del build-deps
 COPY ./requirements.txt /var/www

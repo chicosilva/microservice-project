@@ -22,6 +22,7 @@ RUN apk del build-deps
 COPY ./requirements.txt /var/www
 COPY ./wait.sh /var/www
 RUN pip install -r requirements.txt
+RUN pip install kafka-python
 
 RUN rm -rf /var/www/html
 RUN ["chmod", "+x", "./wait.sh"]
