@@ -9,15 +9,13 @@ from django.core.management.base import BaseCommand
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 from django_apscheduler import util
-from customers.service import consume_customers
+from orders.service import consume_order
 
 logger = logging.getLogger(__name__)
 
 
 def get_orders():
-  
-  consume_customers()
-  pass
+  consume_order()
 
 
 # The `close_old_connections` decorator ensures that database connections, that have become
@@ -46,7 +44,7 @@ class Command(BaseCommand):
         get_orders,
         trigger=CronTrigger(second="*/10"),  # Every 10 seconds
         id="get_orders",  # The `id` assigned to each job MUST be unique
-        max_instances=5,
+        max_instances=15,
         replace_existing=True,
     )
     logger.info("Added job 'get_orders'.")

@@ -9,7 +9,8 @@ class Order(models.Model):
     status = models.CharField(max_length=70)
     discount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True,)
     total = models.DecimalField(max_digits=15, decimal_places=2)
-    created_at = models.DateTimeField(editable=False, auto_now_add=True)
+    created_at = models.DateTimeField()
+    return_date = models.DateField(null=True, blank=True,)
     
     def __str__(self):
         return self.customer.name
