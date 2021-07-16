@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 
 def get_products():
-  print('----------')
   consume_products()
 
 

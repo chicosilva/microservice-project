@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from .service import produce_order
 
 
 class Order(models.Model):
@@ -16,7 +17,7 @@ class Order(models.Model):
     balance = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True,)
     total = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True,)
     created_at = models.DateTimeField(editable=False, auto_now_add=True)
-    return_at = models.DateTimeField(editable=False, null=True, blank=True,)
+    return_at = models.DateField(null=True, blank=True,)
     
     def __str__(self):
         return self.customer.name
@@ -96,5 +97,11 @@ def update_balance(sender, instance, **kwargs):
     Order.objects.\
         filter(pk=instance.order.pk).\
         update(balance=instance.order.adjust_balance())
+
+
+@receiver(post_save, sender=Order)
+def add_order_to_qeue(sender, instance, **kwargs):
+    produce_order(instance)
     
-    
+
+

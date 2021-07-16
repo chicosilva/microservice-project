@@ -14,7 +14,8 @@ from orders.service import consume_order
 logger = logging.getLogger(__name__)
 
 
-def get_orders():
+def get_orders_by_rental():
+  
   consume_order()
 
 
@@ -41,10 +42,10 @@ class Command(BaseCommand):
     scheduler.add_jobstore(DjangoJobStore(), "default")
 
     scheduler.add_job(
-        get_orders,
+        get_orders_by_rental,
         trigger=CronTrigger(second="*/10"),  # Every 10 seconds
-        id="get_orders",  # The `id` assigned to each job MUST be unique
-        max_instances=15,
+        id="get_orders_by_rental",  # The `id` assigned to each job MUST be unique
+        max_instances=5,
         replace_existing=True,
     )
     logger.info("Added job 'get_orders'.")

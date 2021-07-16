@@ -10,7 +10,7 @@ class Order(models.Model):
     discount = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True,)
     total = models.DecimalField(max_digits=15, decimal_places=2)
     created_at = models.DateTimeField()
-    return_date = models.DateField(null=True, blank=True,)
+    return_at = models.DateField(null=True, blank=True,)
     
     def __str__(self):
         return self.customer.name
