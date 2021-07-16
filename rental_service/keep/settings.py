@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'products',
     'customers',
     'orders',
+    "django_apscheduler",
 ]
 
 MIDDLEWARE = [

@@ -22,7 +22,7 @@ RUN apk del build-deps
 COPY ./requirements.txt /var/www
 COPY ./wait.sh /var/www
 RUN pip install -r requirements.txt
-RUN pip install kafka-python
+RUN pip install mysqlclient kafka-python lz4 crc32c django-apscheduler Faker
 
 RUN rm -rf /var/www/html
 RUN ["chmod", "+x", "./wait.sh"]

@@ -7,7 +7,7 @@ from faker import Faker
 def produce_product(product):
     
     data =  {
-        'id': f"{product.uuid}",
+        'uuid': f"{product.uuid}",
         'name': product.name,
         'description': product.description,
         'price': f"{product.price}",
