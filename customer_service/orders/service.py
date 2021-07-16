@@ -30,7 +30,7 @@ def consume_order():
         group_id='orders2',
         bootstrap_servers='kafka:9092',
         enable_auto_commit=False,
-        auto_offset_reset='smallest'
+        auto_offset_reset='largest'
     )
     
     for msg in consumer:
