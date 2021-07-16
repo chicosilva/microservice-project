@@ -7,7 +7,7 @@ from faker import Faker
 def produce_customer(customer):
     
     data =  {
-        'id': f"{customer.uuid}",
+        'uuid': f"{customer.uuid}",
         'name': customer.name,
         'email': customer.email,
     }
