@@ -1,5 +1,8 @@
 from django.db import models
 import uuid
+from .service import produce_product
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 
 
 class Product(models.Model):
@@ -13,3 +16,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=Product)
+def add_product_to_qeue(sender, instance, **kwargs):
+    produce_product(instance)
+    
+
+

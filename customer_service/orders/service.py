@@ -26,8 +26,8 @@ def consume_customers():
 def consume_order():
     
     consumer = KafkaConsumer(
-        'orders2',
-        group_id='orders2',
+        'orders',
+        group_id='orders',
         bootstrap_servers='kafka:9092',
         enable_auto_commit=False,
         auto_offset_reset='largest'
@@ -75,7 +75,7 @@ def produce_order():
     
     #print(producer.bootstrap_connected())
 
-    producer.send('orders2', data)
+    producer.send('orders', data)
 
 
 def create_order(data):
