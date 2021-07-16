@@ -1,5 +1,8 @@
 from django.db import models
 import uuid
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+from .service import produce_customer
 
 
 class Customer(models.Model):
@@ -10,3 +13,9 @@ class Customer(models.Model):
     
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=Customer)
+def add_customer_to_qeue(sender, instance, **kwargs):
+    produce_customer(instance)
+    
