@@ -7,7 +7,10 @@ RUN apk update \
     && apk add --no-cache mariadb-dev
 
 RUN apk add --no-cache openssl bash mysql-client nodejs npm alpine-sdk autoconf librdkafka-dev vim nginx openrc 
-RUN apk add --no-cache bash  python3-dev build-base
+RUN apk add --no-cache bash python3-dev build-base
+RUN apk add libxml2-dev libxslt-dev
+RUN apk add python3-dev libc-dev
+RUN apk add xmlsec-dev
 
 RUN mkdir -p /run/nginx && \
     echo "pid /run/nginx.pid;" >> /etc/nginx/nginx.conf
@@ -28,5 +31,6 @@ RUN ["chmod", "+x", "./wait.sh"]
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY .docker/nginx/nginx.conf /etc/nginx/conf.d
+COPY . .
 
-EXPOSE 8000
+EXPOSE 80
